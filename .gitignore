@@ -1,2 +1,5 @@
 node_modules/
-issues.txt
+
+.env
+
+forum-backend/issues.txt
