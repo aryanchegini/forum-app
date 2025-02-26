@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 import TalkForm from "./components/TalkForm";
 import Talks from "./components/Talks";
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 async function fetchOK(url, options) {
   const response = await fetch(url, options);
@@ -64,7 +64,7 @@ function handleAction(type, user, action) {
 }
 
 function App() {
-  const [user, setUser] = useState("Aryan");
+  const [user, setUser] = useState("Anonymous");
   const [talks, setTalks] = useState([]);
   const [tag, setTag] = useState(undefined);
 
@@ -81,14 +81,18 @@ function App() {
       abortController.signal
     ).catch(console.error);
 
-    // Cleanup function to abort polling on unmount
     return () => abortController.abort();
   }, [tag]);
 
   return (
-    <div className="App">
-      <TalkForm user={user} setUser={setUser} handleAction={handleAction} />
-      <Talks user={user} talks={talks} handleAction={handleAction} />
+    <div className="forum-app">
+      <main className="app-content">
+        <TalkForm user={user} setUser={setUser} handleAction={handleAction} />
+        <Talks user={user} talks={talks} handleAction={handleAction} />
+      </main>
+      <footer className="app-footer">
+        <p>© chegini</p>
+      </footer>
     </div>
   );
 }

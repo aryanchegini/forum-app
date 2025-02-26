@@ -53,6 +53,8 @@ async function serveFromRouter(server, request, response, next) {
 
 const talkPath = /^\/talks\/([^\/]+)$/;
 
+// GET /talk/:talkID
+
 router.add("GET", talkPath, async (server, title) => {
   if (Object.hasOwn(server.talks, title)) {
     return {

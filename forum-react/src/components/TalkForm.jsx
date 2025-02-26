@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import UserField from "./UserField";
+import { useState } from "react";
+import PropTypes from 'prop-types';
 
 export default function TalkForm({ user, setUser, handleAction }) {
   const [title, setTitle] = useState("");
@@ -13,33 +13,50 @@ export default function TalkForm({ user, setUser, handleAction }) {
   };
 
   return (
-    <div className="card p-4 mb-4">
-      <h3 className="card-title">Submit a Talk</h3>
-      <form onSubmit={handleSubmit}>
-        <UserField user={user} setUser={setUser} />
+    <div className="paper-card">
+      <div className="card-header">
+        <h3>Submit a Talk</h3>
+      </div>
+      <form onSubmit={handleSubmit} className="form-content">
         <div className="form-group">
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="username" className="label-text">Your name:</label>
+          <input
+            type="text"
+            id="username"
+            className="input-field"
+            value={user}
+            onChange={(e) => setUser(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="title" className="label-text">Title:</label>
           <input
             type="text"
             id="title"
-            className="form-control"
+            className="input-field"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="summary">Summary:</label>
+          <label htmlFor="summary" className="label-text">Summary:</label>
           <textarea
             id="summary"
-            className="form-control"
+            className="textarea-field"
             value={summary}
             onChange={(e) => setSummary(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn btn-primary ">
-          Submit
+        <button type="submit" className="submit-button">
+          Submit Talk
         </button>
       </form>
     </div>
   );
 }
+
+TalkForm.propTypes = {
+  user: PropTypes.string.isRequired,
+  setUser: PropTypes.func.isRequired,
+  handleAction: PropTypes.func.isRequired
+};
